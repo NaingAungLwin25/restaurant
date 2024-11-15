@@ -1,0 +1,26 @@
+<div class="phone-number-dialog">
+  <h2 mat-dialog-title class="title dialog-title">
+    <span>Phone Number</span>
+    <button mat-icon-button class="dialog-close-icon" (click)="handleDialogClose()"><mat-icon
+        svgIcon="dialog-close"></mat-icon></button>
+  </h2>
+  <mat-dialog-content>
+    <form>
+      <mat-form-field>
+        <mat-label>Phone</mat-label>
+        <mat-icon matPrefix>phone</mat-icon>
+        <input type="tel" matInput placeholder="" [formControl]="phoneControl">
+        @if (phoneControl.invalid) {
+        <mat-error>
+          Please enter a phone number
+        </mat-error>
+        }
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button [disabled]="phoneControl.invalid"
+      [ngClass]="{ 'dialog-active-btn': phoneControl.valid, 'dialog-disabled-btn': phoneControl.invalid }"
+      class="button dialog-btn" mat-button (click)="handleDialogClose()" cdkFocusInitial>CONTINUE</button>
+  </mat-dialog-actions>
+</div>

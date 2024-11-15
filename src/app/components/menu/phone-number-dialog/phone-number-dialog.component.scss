@@ -1,0 +1,31 @@
+@import "../../../../styles/typography";
+@import "../../../../styles/variables";
+
+.phone-number-dialog {
+  .dialog-title {
+    text-align: center;
+  }
+
+  .dialog-close-icon {
+    position: absolute;
+    right: 0;
+    top: 10px;
+  }
+
+  .dialog-active-btn {
+    background-color: $red;
+  }
+
+  .dialog-disabled-btn {
+    background-color: $stroke;
+  }
+
+  .dialog-btn {
+    color: $white;
+    padding: 10px 50px;
+  }
+
+  mat-dialog-actions {
+    justify-content: center;
+  }
+}

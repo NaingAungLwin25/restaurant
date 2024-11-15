@@ -1,0 +1,64 @@
+@import "../../../../styles/variables";
+
+.otp-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.phone-number {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-weight: bold;
+  color: $black;
+  margin-bottom: 8px;
+}
+
+.change {
+  color: $red;
+  cursor: pointer;
+}
+
+.phone-value {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.otp-prompt {
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.otp-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.resend {
+  color: $link;
+  text-decoration: underline;
+}
+
+.otp-field {
+  width: 100%;
+  max-width: 280px;
+  margin-bottom: 16px;
+}
+
+.btn-continue {
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+  text-align: center;
+  button {
+    background-color: $red !important;
+    color: $white !important;
+    font-weight: bold;
+    padding: 10px 30px;
+  }
+  .btn-inactive {
+    background-color: $stroke !important;
+  }
+}

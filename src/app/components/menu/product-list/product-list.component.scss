@@ -1,0 +1,49 @@
+@import "../../../../styles/variables";
+@import "../../../../styles/typography";
+
+.product-list {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 400px);
+  overflow-y: auto;
+
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 16px 0px 16px;
+    border-radius: 8px;
+    box-shadow: none;
+
+    .product-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .product-info {
+        margin-right: 16px;
+
+        .price {
+          margin: 4px 0;
+        }
+      }
+
+      .product-image {
+        width: 83px;
+        border-radius: 8px;
+      }
+    }
+
+    .order-button {
+      align-self: flex-end;
+      margin-top: 8px;
+      margin-bottom: 20px;
+      background-color: $red;
+      color: $white;
+      cursor: pointer;
+    }
+
+    mat-divider {
+      opacity: 0.5;
+    }
+  }
+}

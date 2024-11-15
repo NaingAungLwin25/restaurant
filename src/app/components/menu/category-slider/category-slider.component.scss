@@ -1,0 +1,57 @@
+@import "../../../../styles/variables";
+@import "../../../../styles/typography";
+
+.menu-category {
+  display: flex;
+  overflow-y: hidden;
+  margin-left: 10px;
+  margin-right: 10px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  height: 100px;
+
+  .menu-not-selected {
+    border: 1px solid $stroke;
+    .menu-category-name {
+      color: $gray;
+    }
+  }
+
+  .menu-category-item {
+    padding: 10px 5px;
+    margin-right: 10px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    box-shadow: inset 0px -1px 3.5px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+
+    .menu-category-image-container {
+      padding: 10px 28px;
+
+      .menu-category-image {
+        display: block;
+        width: 28px;
+        height: 28px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    .menu-category-name {
+      text-align: center;
+      word-wrap: break-word;
+    }
+  }
+
+  .menu-selected {
+    border: 2px solid $red;
+    .menu-category-name {
+      color: $red;
+    }
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}

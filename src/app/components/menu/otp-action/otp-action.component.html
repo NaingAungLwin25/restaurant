@@ -1,0 +1,27 @@
+<div class="otp-container">
+  <div class="phone-number">
+    <span>CURRENT PHONE NUMBER</span>
+    <span class="change" (click)="onChangePhone()">CHANGE</span>
+  </div>
+  <div class="phone-value">{{currentPhoneNumber}}</div>
+
+  <div class="otp-prompt">PLEASE ENTER OTP</div>
+
+  <div class="otp-box">
+    <ng-otp-input [formCtrl]="otpFormControl" #otpInput [config]="{length:6, allowNumbersOnly: true}"></ng-otp-input>
+    <span>{{ timer }}s</span>
+  </div>
+  @if (timer === 0) {
+  <p>Don't received? <a class="resend" (click)="onResend()">Resend</a></p>
+  }
+  @if (error && timer > 0) {
+  <p>Wrong OTP. <a class="resend" (click)="onReset()">Try Again</a></p>
+  }
+</div>
+
+<div class="btn-continue">
+  <button [ngClass]="{ 'btn-inactive': otpFormControl.invalid || error }" [disabled]="otpFormControl.invalid || error"
+    mat-raised-button color="warn" (click)="onContinue()">
+    CONTINUE
+  </button>
+</div>

@@ -1,0 +1,25 @@
+@import "../../../../styles/variables";
+@import "../../../../styles/typography";
+
+.menu-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  height: 220px;
+
+  .menu-welcome-title {
+    color: $black;
+    text-align: center;
+  }
+
+  .menu-image-container {
+    position: relative;
+
+    .menu-banner-image {
+      width: 100%;
+      height: 185px;
+    }
+  }
+}

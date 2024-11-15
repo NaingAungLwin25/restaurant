@@ -1,0 +1,20 @@
+<div class="product-list">
+  @for(product of productWithCategory; track $index) {
+  <div id="{{product.id}}" *ngIf="product.item.length > 0">
+    @for(item of product.item; track $index) {
+    <mat-card class="product-card">
+      <div class="product-content">
+        <div class="product-info">
+          <h3 class="main">{{ item.name }}</h3>
+          <p class="main price">{{ item.price | currency:'Ks' }}</p>
+          <p class="hint description">{{ item.description }}</p>
+        </div>
+        <img mat-card-image [src]="item.image" alt="{{ item.name }}" class="product-image" />
+      </div>
+      <button mat-raised-button color="warn" class="order-button" (click)="handleOnOrder(item.name)">ORDER NOW</button>
+      <mat-divider></mat-divider>
+    </mat-card>
+    }
+  </div>
+  }
+</div>

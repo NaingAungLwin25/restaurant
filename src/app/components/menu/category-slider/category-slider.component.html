@@ -1,0 +1,12 @@
+<div class="menu-category">
+  @for(categoryMenu of categoryMenus; track $index) {
+  <div (click)="handleOnChangeMenu(categoryMenu.displayName)"
+    [ngClass]="{ 'menu-selected': categoryMenu.select, 'menu-not-selected': !categoryMenu.select }"
+    class="menu-category-item">
+    <div class="menu-category-image-container">
+      <img class="menu-category-image" src={{categoryMenu.image}} alt="yoguart">
+    </div>
+    <div class="menu-category-name">{{categoryMenu.displayName}}</div>
+  </div>
+  }
+</div>
