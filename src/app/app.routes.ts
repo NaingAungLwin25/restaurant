@@ -4,6 +4,7 @@ import { OtpPageComponent } from './pages/menu/otp-page/otp-page.component';
 import { CompletePageComponent } from './pages/menu/complete-page/complete-page.component';
 import { FullComponent } from './layouts/dashboard/full/full.component';
 import { BlankComponent } from './layouts/dashboard/blank/blank.component';
+import { AuthGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: MenuComponent },
@@ -12,6 +13,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: FullComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',

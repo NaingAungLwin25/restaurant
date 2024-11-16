@@ -5,7 +5,7 @@ import {
   Input,
   ViewEncapsulation,
 } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MaterialModule } from '../../../../material.module';
@@ -23,5 +23,17 @@ export class HeaderComponent {
   @Output() toggleMobileNav = new EventEmitter<void>();
   @Output() toggleCollapsed = new EventEmitter<void>();
 
-  constructor() {}
+  constructor(private router: Router) {}
+
+  getLoginUserName() {
+    const storeObj = localStorage.getItem('loginUser');
+    if (!storeObj) return;
+    const loginUser = JSON.parse(storeObj);
+    return loginUser.name;
+  }
+
+  handleLogout() {
+    localStorage.clear();
+    this.router.navigate(['/admin/auth/login']);
+  }
 }

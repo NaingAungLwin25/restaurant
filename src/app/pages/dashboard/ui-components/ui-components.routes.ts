@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 
 // ui
-import { AppFormsComponent } from './forms/forms.component';
-import { AppTablesComponent } from './tables/tables.component';
 import { UserFormComponent } from './users/user-form/user-form.component';
 import { UserListComponent } from './users/user-list/user-list.component';
+import { CategoryListComponent } from './category/category-list/category-list.component';
+import { CategoryFormComponent } from './category/category-form/category-form.component';
 
 export const UiComponentsRoutes: Routes = [
   {
@@ -12,16 +12,8 @@ export const UiComponentsRoutes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'products',
+        redirectTo: 'users',
         pathMatch: 'full',
-      },
-      {
-        path: 'products',
-        component: AppFormsComponent,
-      },
-      {
-        path: 'category',
-        component: AppTablesComponent,
       },
       {
         path: 'users',
@@ -37,6 +29,23 @@ export const UiComponentsRoutes: Routes = [
           {
             path: ':id',
             component: UserFormComponent,
+          },
+        ],
+      },
+      {
+        path: 'category',
+        children: [
+          {
+            path: '',
+            component: CategoryListComponent,
+          },
+          {
+            path: 'create',
+            component: CategoryFormComponent,
+          },
+          {
+            path: ':id',
+            component: CategoryFormComponent,
           },
         ],
       },
