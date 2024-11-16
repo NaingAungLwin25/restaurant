@@ -11,13 +11,11 @@ import { Component, Input } from '@angular/core';
 export class CategorySliderComponent {
   @Input() categoryMenus: any[] = [];
 
-  public handleOnChangeMenu(name: string) {
+  public handleOnChangeMenu(id: string) {
     this.categoryMenus = this.categoryMenus.map((menu) =>
-      menu.displayName === name
-        ? { ...menu, select: true }
-        : { ...menu, select: false }
+      menu.id === id ? { ...menu, select: true } : { ...menu, select: false }
     );
-    const element = document.getElementById(name);
+    const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }

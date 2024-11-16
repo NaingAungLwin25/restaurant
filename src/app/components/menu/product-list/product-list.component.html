@@ -9,7 +9,7 @@
           <p class="main price">{{ item.price | currency:'Ks' }}</p>
           <p class="hint description">{{ item.description }}</p>
         </div>
-        <img mat-card-image [src]="item.image" alt="{{ item.name }}" class="product-image" />
+        <img mat-card-image [src]="getImage(product.name)" alt="{{ item.name }}" class="product-image" />
       </div>
       <button mat-raised-button color="warn" class="order-button button" (click)="handleOnOrder(item.name)">ORDER
         NOW</button>

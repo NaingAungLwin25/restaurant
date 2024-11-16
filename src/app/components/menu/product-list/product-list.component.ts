@@ -29,4 +29,20 @@ export class ProductListComponent {
       }
     });
   }
+
+  getImage(name: string) {
+    const cleanedName = name.replace(/\s+/g, '').toLowerCase();
+    const images = {
+      coffee: 'coffee',
+      bubbletea: 'bubble-tea',
+      smoothie: 'smoothie',
+      fruittea: 'fruit-tea',
+      soda: 'soda',
+      yoguart: 'yoguart',
+    };
+
+    const imageName = images[cleanedName as keyof typeof images] || 'default';
+
+    return `assets/menu/images/${imageName}.png`;
+  }
 }

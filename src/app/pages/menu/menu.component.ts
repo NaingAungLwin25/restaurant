@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  inject,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -9,6 +10,9 @@ import { HeaderComponent } from '../../components/menu/header/header.component';
 import { BannerComponent } from '../../components/menu/banner/banner.component';
 import { CategorySliderComponent } from '../../components/menu/category-slider/category-slider.component';
 import { ProductListComponent } from '../../components/menu/product-list/product-list.component';
+import { ApiService } from '../../services/api.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorDialogComponent } from '../../components/dashboard/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-menu',
@@ -25,130 +29,90 @@ import { ProductListComponent } from '../../components/menu/product-list/product
 export class MenuComponent implements OnInit, AfterViewInit {
   @ViewChild('fixContent') headerRef!: ElementRef;
   @ViewChild('scrollContent') scrollRef!: ElementRef;
-  public categoryMenus = [
-    {
-      image: 'assets/menu/images/yoguart.png',
-      displayName: 'Yoguart',
-      select: true,
-    },
-    {
-      image: 'assets/menu/images/coffee.png',
-      displayName: 'Coffee',
-      select: false,
-    },
-    {
-      image: 'assets/menu/images/bubble-tea.png',
-      displayName: 'Bubble Tea',
-      select: false,
-    },
-    {
-      image: 'assets/menu/images/smoothie.png',
-      displayName: 'Smoothie',
-      select: false,
-    },
-    {
-      image: 'assets/menu/images/soda.png',
-      displayName: 'Soda',
-      select: false,
-    },
-    {
-      image: 'assets/menu/images/fruit-tea.png',
-      displayName: 'Fruit Tea',
-      select: false,
-    },
-  ];
+  readonly dialog = inject(MatDialog);
+  public categoryMenus: any = [];
 
-  products = [
-    {
-      name: 'Passion Yogurt',
-      price: 5000,
-      description:
-        'Natural fermented yogurt from pure fresh milk and passion fruit...',
-      category: 'Yoguart',
-      image: 'assets/menu/images/product-image.png',
-    },
-    {
-      name: 'Orange Yogurt',
-      price: 5000,
-      description:
-        'Natural fermented yogurt from pure fresh milk and passion fruit...',
-      category: 'Yoguart',
-      image: 'assets/menu/images/product-image.png',
-    },
-    {
-      name: 'Orange Yogurt',
-      price: 5000,
-      description:
-        'Natural fermented yogurt from pure fresh milk and passion fruit...',
-      category: 'Yoguart',
-      image: 'assets/menu/images/product-image.png',
-    },
-    {
-      name: 'Coffee',
-      price: 5000,
-      description:
-        'Natural fermented yogurt from pure fresh milk and passion fruit...',
-      category: 'Coffee',
-      image: 'assets/menu/images/product-image.png',
-    },
-    {
-      name: 'Coffee',
-      price: 5000,
-      description:
-        'Natural fermented yogurt from pure fresh milk and passion fruit...',
-      category: 'Coffee',
-      image: 'assets/menu/images/product-image.png',
-    },
-    {
-      name: 'Coffee',
-      price: 5000,
-      description:
-        'Natural fermented yogurt from pure fresh milk and passion fruit...',
-      category: 'Coffee',
-      image: 'assets/menu/images/product-image.png',
-    },
-  ];
+  products: any = [];
 
   public productWithCategory: any = [];
   public headerHeight = 0;
+
+  constructor(private apiService: ApiService) {}
 
   getEntirePageHeight() {
     const body = document.body;
     return body.offsetHeight;
   }
 
-  ngAfterViewInit() {
-    this.headerRef.nativeElement.style.height =
-      this.headerRef.nativeElement.offsetHeight + 'px';
-    this.headerHeight = this.headerRef.nativeElement.offsetHeight;
+  addHeightToProductList() {
     const pageHeight = this.getEntirePageHeight();
-    this.scrollRef.nativeElement.style.height =
-      pageHeight - this.headerHeight + 'px';
+    const observer = new ResizeObserver(() => {
+      const headerHeight = this.headerRef.nativeElement.offsetHeight;
+      this.scrollRef.nativeElement.style.height =
+        pageHeight - headerHeight - 10 + 'px';
+    });
+    observer.observe(this.headerRef.nativeElement);
+  }
+
+  ngAfterViewInit() {
+    this.addHeightToProductList();
   }
 
   ngOnInit() {
-    this.categoryMenus.forEach((m) => {
-      const item = this.products.filter((p) => p.category === m.displayName);
-      if (item && item.length > 0) {
-        this.productWithCategory.push({
-          name: m.displayName,
-          id: m.displayName,
-          item,
+    this.fetchCategory();
+  }
+
+  fetchCategory() {
+    this.apiService.getItems('category').subscribe({
+      next: (data) => {
+        this.categoryMenus = data.map((d: any) => ({ ...d, select: false }));
+        if (this.categoryMenus.length > 0) {
+          this.categoryMenus[0].select = true;
+          this.fetchProducts();
+        }
+      },
+      error: (error) => {
+        this.dialog.open(ErrorDialogComponent, {
+          data: { message: error.message },
         });
-      }
+      },
+    });
+  }
+
+  fetchProducts() {
+    this.apiService.getItems('products').subscribe({
+      next: (data) => {
+        console.log(data);
+        this.categoryMenus.forEach((m: any) => {
+          const item = data.filter((p: any) => p.category === m.name);
+          if (item && item.length > 0) {
+            this.productWithCategory.push({
+              name: m.name,
+              id: m.id,
+              item,
+            });
+          }
+        });
+        console.log(this.productWithCategory);
+      },
+      error: (error) => {
+        this.dialog.open(ErrorDialogComponent, {
+          data: { message: error.message },
+        });
+      },
     });
   }
 
   onScroll() {
     const firstElementHeight = document.getElementById(
-      this.categoryMenus[0].displayName
+      this.categoryMenus[0].id
     )?.offsetHeight;
     const containerTop =
       this.scrollRef.nativeElement.scrollTop + firstElementHeight;
-    this.categoryMenus.forEach((cat) => {
-      const element = document.getElementById(cat.displayName);
+    this.categoryMenus.forEach((cat: { id: string }) => {
+      const element = document.getElementById(cat.id);
       if (element) {
-        const category = document.getElementById(`cat${cat.displayName}`);
+        const category = document.getElementById(`cat${cat.id}`);
         const elementHeight = element?.offsetHeight + element?.offsetTop;
         if (containerTop > element.offsetTop && containerTop < elementHeight) {
           category?.classList.add('menu-selected');
