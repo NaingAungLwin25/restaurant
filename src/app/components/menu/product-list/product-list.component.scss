@@ -19,6 +19,7 @@
 
       .product-info {
         margin-right: 16px;
+        color: $black;
 
         .price {
           margin: 4px 0;
@@ -36,12 +37,9 @@
       margin-top: 8px;
       margin-bottom: 20px;
       background-color: $red;
+      padding: 5px 20px;
       color: $white;
       cursor: pointer;
-    }
-
-    mat-divider {
-      opacity: 0.5;
     }
   }
 }

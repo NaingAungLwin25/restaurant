@@ -5,11 +5,11 @@
         svgIcon="dialog-close"></mat-icon></button>
   </h2>
   <mat-dialog-content>
-    <form>
+    <form class="form-text">
       <mat-form-field>
-        <mat-label>Phone</mat-label>
+        <mat-label class="input-label">Phone</mat-label>
         <mat-icon matPrefix>phone</mat-icon>
-        <input type="tel" matInput placeholder="" [formControl]="phoneControl">
+        <input class="input" type="tel" matInput placeholder="" [formControl]="phoneControl">
         @if (phoneControl.invalid) {
         <mat-error>
           Please enter a phone number

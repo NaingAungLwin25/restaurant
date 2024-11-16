@@ -1,9 +1,11 @@
 @import "../../../../styles/variables";
+@import "../../../../styles//typography";
 
 .otp-container {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  color: $black;
 }
 
 .phone-number {
