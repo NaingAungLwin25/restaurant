@@ -1,7 +1,8 @@
-<menu-header />
-
-<menu-banner />
-
-<menu-category-slider [categoryMenus]="categoryMenus" />
-
-<menu-product-list [productWithCategory]="productWithCategory" />
+<div #fixContent>
+  <menu-header />
+  <menu-banner />
+  <menu-category-slider [categoryMenus]="categoryMenus" />
+</div>
+<div #scrollContent id="scrollContent">
+  <menu-product-list [productWithCategory]="productWithCategory" />
+</div>

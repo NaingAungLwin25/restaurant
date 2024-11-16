@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { HeaderComponent } from '../../components/menu/header/header.component';
 import { BannerComponent } from '../../components/menu/banner/banner.component';
 import { CategorySliderComponent } from '../../components/menu/category-slider/category-slider.component';
@@ -16,7 +22,9 @@ import { ProductListComponent } from '../../components/menu/product-list/product
     ProductListComponent,
   ],
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit, AfterViewInit {
+  @ViewChild('fixContent') headerRef!: ElementRef;
+  @ViewChild('scrollContent') scrollRef!: ElementRef;
   public categoryMenus = [
     {
       image: 'yoguart.png',
@@ -102,6 +110,21 @@ export class MenuComponent {
   ];
 
   public productWithCategory: any = [];
+  public headerHeight = 0;
+
+  getEntirePageHeight() {
+    const body = document.body;
+    return body.offsetHeight;
+  }
+
+  ngAfterViewInit() {
+    this.headerRef.nativeElement.style.height =
+      this.headerRef.nativeElement.offsetHeight + 'px';
+    this.headerHeight = this.headerRef.nativeElement.offsetHeight;
+    const pageHeight = this.getEntirePageHeight();
+    this.scrollRef.nativeElement.style.height =
+      pageHeight - this.headerHeight + 'px';
+  }
 
   ngOnInit() {
     this.categoryMenus.forEach((m) => {

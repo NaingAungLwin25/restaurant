@@ -4,8 +4,6 @@
 .product-list {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 400px);
-  overflow-y: auto;
 
   .product-card {
     display: flex;
