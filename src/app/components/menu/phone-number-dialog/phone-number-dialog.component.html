@@ -11,7 +11,7 @@
         <mat-icon matPrefix>phone</mat-icon>
         <input class="input" type="tel" matInput placeholder="" [formControl]="phoneControl">
         @if (phoneControl.invalid) {
-        <mat-error>
+        <mat-error class="hint error">
           Please enter a phone number
         </mat-error>
         }
