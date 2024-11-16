@@ -7,8 +7,6 @@ import { AppNavItemComponent } from './sidebar/nav-item/nav-item.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { NgScrollbarModule } from 'ngx-scrollbar';
-import { TablerIconsModule } from 'angular-tabler-icons';
 import { HeaderComponent } from './header/header.component';
 import { MaterialModule } from '../../../material.module';
 
@@ -25,8 +23,6 @@ const MONITOR_VIEW = 'screen and (min-width: 1024px)';
     MaterialModule,
     CommonModule,
     SidebarComponent,
-    NgScrollbarModule,
-    TablerIconsModule,
     HeaderComponent,
   ],
   templateUrl: './full.component.html',

@@ -1,0 +1,76 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Registration</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <form (submit)="handleSubmit()" [formGroup]="userForm">
+      <div class="row">
+        <div class="col-lg-6">
+          <!-- input -->
+          <mat-label class="f-w-600 m-b-8 d-block">Name</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput formControlName="name" placeholder="your name " />
+            @if (userForm.get('name')?.invalid && userForm.get('name')?.touched) {
+            <mat-error class="hint error">
+              Please enter name
+            </mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <!-- input -->
+          <mat-label class="f-w-600 m-b-8 d-block">Email</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput formControlName="email" type="email" placeholder="your email" />
+            @if (userForm.get('email')?.invalid && userForm.get('email')?.touched) {
+            <mat-error class="hint error">
+              Please enter email
+            </mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <!-- input -->
+          <mat-label class="f-w-600 m-b-8 d-block">Password</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput formControlName="password" type="password" placeholder="your password" />
+            @if (userForm.get('password')?.invalid && userForm.get('password')?.touched) {
+            <mat-error class="hint error">
+              Please enter password
+            </mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <!-- input -->
+          <mat-label class="f-w-600 m-b-8 d-block">Address</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput formControlName="address" placeholder="your address" />
+            @if (userForm.get('address')?.invalid && userForm.get('address')?.touched) {
+            <mat-error class="hint error">
+              Please enter address
+            </mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <!-- input -->
+          <mat-label class="f-w-600 m-b-8 d-block">Phone Number</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput formControlName="phone" placeholder="your phone" />
+            @if (userForm.get('phone')?.invalid && userForm.get('phone')?.touched) {
+            <mat-error class="hint error">
+              Please enter phone
+            </mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="m-t-12">
+        <button type="submit" mat-flat-button color="primary" class="m-r-8">Submit</button>
+        <button type="button" mat-stroked-button color="warn" (click)="handleCancel()">Cancel</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

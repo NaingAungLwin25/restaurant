@@ -2,14 +2,19 @@ import { NavItem } from './nav-item/nav-item';
 
 export const navItems: NavItem[] = [
   {
+    displayName: 'Category',
+    iconName: 'solar:tablet-line-duotone',
+    route: '/admin/category',
+  },
+  {
     displayName: 'Products',
     iconName: 'solar:file-text-line-duotone',
     route: '/admin/products',
   },
   {
-    displayName: 'Category',
-    iconName: 'solar:tablet-line-duotone',
-    route: '/admin/category',
+    displayName: 'Users',
+    iconName: 'solar:file-text-line-duotone',
+    route: '/admin/users',
   },
   {
     displayName: 'Login',
