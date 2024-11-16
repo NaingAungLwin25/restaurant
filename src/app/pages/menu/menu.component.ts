@@ -27,32 +27,32 @@ export class MenuComponent implements OnInit, AfterViewInit {
   @ViewChild('scrollContent') scrollRef!: ElementRef;
   public categoryMenus = [
     {
-      image: 'yoguart.png',
+      image: 'assets/menu/images/yoguart.png',
       displayName: 'Yoguart',
       select: true,
     },
     {
-      image: 'coffee.png',
+      image: 'assets/menu/images/coffee.png',
       displayName: 'Coffee',
       select: false,
     },
     {
-      image: 'bubble-tea.png',
+      image: 'assets/menu/images/bubble-tea.png',
       displayName: 'Bubble Tea',
       select: false,
     },
     {
-      image: 'smoothie.png',
+      image: 'assets/menu/images/smoothie.png',
       displayName: 'Smoothie',
       select: false,
     },
     {
-      image: 'soda.png',
+      image: 'assets/menu/images/soda.png',
       displayName: 'Soda',
       select: false,
     },
     {
-      image: 'fruit-tea.png',
+      image: 'assets/menu/images/fruit-tea.png',
       displayName: 'Fruit Tea',
       select: false,
     },
@@ -65,7 +65,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
       description:
         'Natural fermented yogurt from pure fresh milk and passion fruit...',
       category: 'Yoguart',
-      image: 'product-image.png',
+      image: 'assets/menu/images/product-image.png',
     },
     {
       name: 'Orange Yogurt',
@@ -73,7 +73,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
       description:
         'Natural fermented yogurt from pure fresh milk and passion fruit...',
       category: 'Yoguart',
-      image: 'product-image.png',
+      image: 'assets/menu/images/product-image.png',
     },
     {
       name: 'Orange Yogurt',
@@ -81,7 +81,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
       description:
         'Natural fermented yogurt from pure fresh milk and passion fruit...',
       category: 'Yoguart',
-      image: 'product-image.png',
+      image: 'assets/menu/images/product-image.png',
     },
     {
       name: 'Coffee',
@@ -89,7 +89,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
       description:
         'Natural fermented yogurt from pure fresh milk and passion fruit...',
       category: 'Coffee',
-      image: 'product-image.png',
+      image: 'assets/menu/images/product-image.png',
     },
     {
       name: 'Coffee',
@@ -97,7 +97,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
       description:
         'Natural fermented yogurt from pure fresh milk and passion fruit...',
       category: 'Coffee',
-      image: 'product-image.png',
+      image: 'assets/menu/images/product-image.png',
     },
     {
       name: 'Coffee',
@@ -105,7 +105,7 @@ export class MenuComponent implements OnInit, AfterViewInit {
       description:
         'Natural fermented yogurt from pure fresh milk and passion fruit...',
       category: 'Coffee',
-      image: 'product-image.png',
+      image: 'assets/menu/images/product-image.png',
     },
   ];
 

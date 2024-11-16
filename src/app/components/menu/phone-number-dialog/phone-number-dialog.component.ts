@@ -46,7 +46,9 @@ export class PhoneNumberDialogComponent {
   ) {
     this.matIconRegistry.addSvgIcon(
       'dialog-close',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('dialog-close.svg')
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        'assets/menu/images/dialog-close.svg'
+      )
     );
   }
 
