@@ -19,7 +19,7 @@ export class CategorySliderComponent {
     );
     const element = document.getElementById(name);
     if (element) {
-      element.scrollIntoView();
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 }
