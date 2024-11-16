@@ -138,4 +138,24 @@ export class MenuComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  onScroll() {
+    const firstElementHeight = document.getElementById(
+      this.categoryMenus[0].displayName
+    )?.offsetHeight;
+    const containerTop =
+      this.scrollRef.nativeElement.scrollTop + firstElementHeight;
+    this.categoryMenus.forEach((cat) => {
+      const element = document.getElementById(cat.displayName);
+      if (element) {
+        const category = document.getElementById(`cat${cat.displayName}`);
+        const elementHeight = element?.offsetHeight + element?.offsetTop;
+        if (containerTop > element.offsetTop && containerTop < elementHeight) {
+          category?.classList.add('menu-selected');
+        } else {
+          category?.classList.remove('menu-selected');
+        }
+      }
+    });
+  }
 }
