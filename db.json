@@ -1,0 +1,110 @@
+{
+  "category": [
+    {
+      "id": "1",
+      "name": "Yoguart",
+      "image": "assets/menu/images/yoguart.png"
+    },
+    {
+      "id": "2",
+      "name": "Coffee",
+      "image": "assets/menu/images/coffee.png"
+    },
+    {
+      "id": "3",
+      "name": "Bubble Tea",
+      "image": "assets/menu/images/bubble-tea.png"
+    },
+    {
+      "id": "4",
+      "name": "Smoothie",
+      "image": "assets/menu/images/smoothie.png"
+    },
+    {
+      "id": "5",
+      "name": "Soda",
+      "image": "assets/menu/images/soda.png"
+    },
+    {
+      "id": "6",
+      "name": "Fruit Tea",
+      "image": "assets/menu/images/fruit-tea.png"
+    }
+  ],
+  "products": [
+    {
+      "name": "Passion Yogurt",
+      "price": 5000,
+      "description": "Natural fermented yogurt from pure fresh milk and passion fruit...",
+      "category": "Yoguart",
+      "image": "assets/menu/images/product-image.png",
+      "id": "ef50"
+    },
+    {
+      "name": "Orange Yogurt",
+      "price": 5000,
+      "description": "Natural fermented yogurt from pure fresh milk and passion fruit...",
+      "category": "Yoguart",
+      "image": "assets/menu/images/product-image.png",
+      "id": "9106"
+    },
+    {
+      "name": "Orange Yogurt",
+      "price": 5000,
+      "description": "Natural fermented yogurt from pure fresh milk and passion fruit...",
+      "category": "Yoguart",
+      "image": "assets/menu/images/product-image.png",
+      "id": "7bd1"
+    },
+    {
+      "name": "Coffee",
+      "price": 5000,
+      "description": "Natural fermented yogurt from pure fresh milk and passion fruit...",
+      "category": "Coffee",
+      "image": "assets/menu/images/product-image.png",
+      "id": "bb9c"
+    },
+    {
+      "name": "Coffee",
+      "price": 5000,
+      "description": "Natural fermented yogurt from pure fresh milk and passion fruit...",
+      "category": "Coffee",
+      "image": "assets/menu/images/product-image.png",
+      "id": "1fa0"
+    },
+    {
+      "name": "Coffee",
+      "price": 5000,
+      "description": "Natural fermented yogurt from pure fresh milk and passion fruit...",
+      "category": "Coffee",
+      "image": "assets/menu/images/product-image.png",
+      "id": "51a3"
+    }
+  ],
+  "users": [
+    {
+      "name": "admin1",
+      "email": "admin1@gmail.com",
+      "password": "admin1234",
+      "address": "Yangon",
+      "phone": "09123456789",
+      "id": "1"
+    },
+    {
+      "id": "2",
+      "name": "admin2",
+      "email": "admin2@gmail.com",
+      "password": "admin2",
+      "address": "Yangon",
+      "phone": "0987654321"
+    },
+    {
+      "name": "naing aung lwin",
+      "email": "lwin@gmai.com",
+      "password": "12345678",
+      "address": "yangon",
+      "phone": "09795584079",
+      "id": "840843b6-9e55-4414-93c8-7ac9533db301"
+    }
+  ]
+}
