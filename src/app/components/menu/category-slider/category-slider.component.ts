@@ -12,13 +12,21 @@ import { Category } from '../../../models';
 export class CategorySliderComponent {
   @Input() categoryMenus: Array<Category & { select: boolean }> = [];
 
+  /**
+   * Change category and scroll to related products
+   * @param id Category ID for menu change
+   */
   public handleOnChangeMenu(id: string) {
-    this.categoryMenus = this.categoryMenus.map((menu) =>
-      menu.id === id ? { ...menu, select: true } : { ...menu, select: false }
-    );
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    try {
+      this.categoryMenus = this.categoryMenus.map((menu) =>
+        menu.id === id ? { ...menu, select: true } : { ...menu, select: false }
+      );
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 }

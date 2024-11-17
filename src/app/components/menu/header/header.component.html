@@ -1,6 +1,7 @@
-<mat-toolbar color="primary" class="menu-toolbar">
+<mat-toolbar color="primary" id="menu" class="menu-toolbar">
   <button mat-icon-button class="back-button" (click)="goBack()">
     <mat-icon>arrow_back</mat-icon>
   </button>
   <span class="menu-title title">Menu</span>
 </mat-toolbar>
+<router-outlet />

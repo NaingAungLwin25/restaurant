@@ -21,7 +21,10 @@ export class ProductListComponent {
 
   constructor(private router: Router) {}
 
-  public handleOnOrder(name: string) {
+  /**
+   * Handle ORDER NOW button click
+   */
+  public handleOnOrder() {
     const dialogRef = this.dialog.open(PhoneNumberDialogComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -31,7 +34,12 @@ export class ProductListComponent {
     });
   }
 
-  getImage(name: string) {
+  /**
+   * Get image from assets according to product name
+   * @param name Name of product
+   * @returns Image path from assets
+   */
+  public getImage(name: string) {
     const cleanedName = name.replace(/\s+/g, '').toLowerCase();
     const images = {
       coffee: 'coffee',

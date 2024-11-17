@@ -30,7 +30,7 @@ const MONITOR_VIEW = 'screen and (min-width: 1024px)';
   encapsulation: ViewEncapsulation.None,
 })
 export class FullComponent implements OnInit {
-  navItems = navItems;
+  public navItems = navItems;
 
   @ViewChild('leftsidenav')
   public sidenav: MatSidenav | any;
@@ -60,20 +60,36 @@ export class FullComponent implements OnInit {
       });
   }
 
+  /**
+   * Page Init
+   */
   ngOnInit(): void {}
 
+  /**
+   * Page out evvent
+   */
   ngOnDestroy() {
     this.layoutChangesSubscription.unsubscribe();
   }
 
+  /**
+   * For menu collapse
+   */
   toggleCollapsed() {
     this.isContentWidthFixed = false;
   }
 
+  /**
+   * Navigation close event
+   */
   onSidenavClosedStart() {
     this.isContentWidthFixed = false;
   }
 
+  /**
+   * Navigation open event
+   * @param isOpened
+   */
   onSidenavOpenedChange(isOpened: boolean) {
     this.isCollapsedWidthFixed = !this.isOver;
   }

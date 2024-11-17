@@ -1,6 +1,6 @@
 <mat-card class="cardWithShadow theme-card">
   <mat-card-header>
-    <mat-card-title class="m-b-0">Registration</mat-card-title>
+    <mat-card-title class="m-b-0">{{title}}</mat-card-title>
   </mat-card-header>
   <mat-card-content class="b-t-1">
     <form (submit)="handleSubmit()" [formGroup]="categoryForm">
@@ -21,12 +21,7 @@
         <button type="submit" mat-flat-button color="primary" class="m-r-8">
           Submit
         </button>
-        <button
-          type="button"
-          mat-stroked-button
-          color="warn"
-          (click)="handleCancel()"
-        >
+        <button type="button" mat-stroked-button color="warn" (click)="handleCancel()">
           Cancel
         </button>
       </div>

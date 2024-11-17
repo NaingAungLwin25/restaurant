@@ -30,7 +30,11 @@ export class AppNavItemComponent {
     }
   }
 
-  onItemSelected(item: NavItem) {
+  /**
+   * Change page route when click side menu
+   * @param item Navigation item
+   */
+  public onItemSelected(item: NavItem) {
     this.router.navigate([item.route]);
 
     //scroll

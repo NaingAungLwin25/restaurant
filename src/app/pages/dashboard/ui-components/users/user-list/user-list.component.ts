@@ -29,20 +29,25 @@ import { User } from '../../../../../models';
 })
 export class UserListComponent {
   readonly dialog = inject(MatDialog);
-  displayedColumns: string[] = ['name', 'address', 'phone', 'budget'];
-  dataSource: Array<User> = [];
+  public displayedColumns: string[] = ['name', 'address', 'phone', 'budget'];
+  public dataSource: Array<User> = [];
 
   constructor(private apiService: ApiService, private router: Router) {}
 
+  /**
+   * Page initialization
+   */
   ngOnInit() {
     this.getUsers();
   }
 
-  getUsers() {
+  /**
+   * Fetch Users
+   */
+  private getUsers() {
     this.apiService.getItems<User>('users').subscribe({
       next: (data) => {
         this.dataSource = data;
-        console.log('Items fetched:', data);
       },
       error: (error) => {
         this.dialog.open(ErrorDialogComponent, {
@@ -52,20 +57,31 @@ export class UserListComponent {
     });
   }
 
-  goToAdd() {
+  /**
+   * Go to registration page
+   */
+  public goToAdd() {
     this.router.navigate(['/admin/users/create']);
   }
 
-  goToEdit(id: string) {
+  /**
+   * Go to update page
+   * @param id User ID
+   */
+  public goToEdit(id: string) {
     this.router.navigate(['/admin/users/' + id]);
   }
 
-  deleteUser(id: string) {
+  /**
+   * Delete User
+   * @param id User ID
+   */
+  public deleteUser(id: string) {
     const deleteDialogRef = this.dialog.open(DeleteConfirmDialogComponent);
     deleteDialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.apiService.deleteItem('users', id).subscribe({
-          next: (data) => {
+          next: () => {
             this.getUsers();
           },
           error: (error) => {

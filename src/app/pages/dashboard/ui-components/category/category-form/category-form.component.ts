@@ -38,11 +38,11 @@ import { Category } from '../../../../../models';
   templateUrl: './category-form.component.html',
 })
 export class CategoryFormComponent {
-  categoryForm: FormGroup;
+  public categoryForm: FormGroup;
   readonly dialog = inject(MatDialog);
-  categoryId: string = '';
-  isEdit: boolean = false;
-  title: string = '';
+  private categoryId: string = '';
+  public isEdit: boolean = false;
+  public title: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -55,16 +55,23 @@ export class CategoryFormComponent {
     });
   }
 
+  /**
+   * Page Initialize
+   */
   ngOnInit() {
     this.categoryId = this.route.snapshot.paramMap.get('id') || '';
-    console.log(this.categoryId);
     if (this.categoryId) {
       this.isEdit = true;
       this.fetchcategory(this.categoryId);
     }
+    this.title = this.isEdit ? 'Update' : 'Registration';
   }
 
-  fetchcategory(id: string) {
+  /**
+   * Fetch Category by ID
+   * @param id Category ID
+   */
+  private fetchcategory(id: string) {
     this.apiService.getItem('category', id).subscribe({
       next: (data) => {
         this.categoryForm.patchValue(data);
@@ -77,7 +84,10 @@ export class CategoryFormComponent {
     });
   }
 
-  handleSubmit() {
+  /**
+   * Handle submit button
+   */
+  public handleSubmit() {
     if (this.categoryForm.invalid) return;
     const payload = { ...this.categoryForm.getRawValue(), id: uuidv4() };
     const path = 'category';
@@ -88,9 +98,15 @@ export class CategoryFormComponent {
     this.createcategory(path, payload);
   }
 
-  updatecategory(id: string, path: string, payload: Category) {
+  /**
+   * Update category
+   * @param id Category ID
+   * @param path API path
+   * @param payload Category payload
+   */
+  private updatecategory(id: string, path: string, payload: Category) {
     this.apiService.updateItem<Category>(path, id, payload).subscribe({
-      next: (data) => {
+      next: () => {
         this.router.navigate(['/admin/category']);
       },
       error: (error) => {
@@ -101,9 +117,14 @@ export class CategoryFormComponent {
     });
   }
 
-  createcategory(path: string, payload: Category) {
+  /**
+   * Create new category
+   * @param path API path
+   * @param payload Category payload
+   */
+  private createcategory(path: string, payload: Category) {
     this.apiService.createItem<Category>(path, payload).subscribe({
-      next: (data) => {
+      next: () => {
         this.router.navigate(['/admin/category']);
       },
       error: (error) => {
@@ -114,7 +135,10 @@ export class CategoryFormComponent {
     });
   }
 
-  handleCancel() {
+  /**
+   * Handle click for cancel button
+   */
+  public handleCancel() {
     this.router.navigate(['/admin/category']);
   }
 }

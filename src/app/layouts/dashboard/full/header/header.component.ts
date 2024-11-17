@@ -26,13 +26,20 @@ export class HeaderComponent {
 
   constructor(private router: Router) {}
 
-  getLoginUserName() {
+  /**
+   * Get Login User Name
+   * @returns Login User Name
+   */
+  public getLoginUserName() {
     const storeObj = localStorage.getItem('loginUser');
     if (!storeObj) return;
     const loginUser = JSON.parse(storeObj) as User;
     return loginUser.name;
   }
 
+  /**
+   * Handle for Logout button click
+   */
   handleLogout() {
     localStorage.clear();
     this.router.navigate(['/admin/auth/login']);

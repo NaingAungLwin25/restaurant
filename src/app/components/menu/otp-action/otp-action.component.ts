@@ -34,6 +34,9 @@ export class OtpActionComponent {
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
+  /**
+   * Page Init
+   */
   ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
       this.currentPhoneNumber = params.get('phone') || '';
@@ -41,7 +44,10 @@ export class OtpActionComponent {
     });
   }
 
-  onChangePhone() {
+  /**
+   * Hanlde for phone number change
+   */
+  public onChangePhone() {
     const dialogRef = this.dialog.open(PhoneNumberDialogComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -52,17 +58,10 @@ export class OtpActionComponent {
     });
   }
 
-  onOtpChange(event: string) {
-    if (event.length === 6 && event !== this.dummyOTP) {
-      this.error = true;
-      return;
-    }
-    if (event.length === 6 && event === this.dummyOTP) {
-      this.error = false;
-    }
-  }
-
-  startTimer() {
+  /**
+   * Start timer for OTP
+   */
+  private startTimer() {
     const interval = setInterval(() => {
       if (this.timer > 0) {
         this.timer--;
@@ -74,20 +73,29 @@ export class OtpActionComponent {
     }, 1000);
   }
 
-  onResend() {
+  /**
+   * Handle for resend button event
+   */
+  public onResend() {
     this.onReset();
     this.timer = this.defaultTime;
     this.startTimer();
   }
 
-  onReset() {
+  /**
+   * Reset form and error
+   */
+  public onReset() {
     this.error = false;
     this.otpInput.setValue('');
   }
 
-  onContinue() {
+  /**
+   * Handle for click continue button
+   * @returns Error or go to complete page
+   */
+  public onContinue() {
     const formVal = this.otpFormControl.getRawValue();
-    console.log('OTP entered:', formVal);
     if (formVal?.length === 6 && formVal !== this.dummyOTP) {
       this.error = true;
       return;

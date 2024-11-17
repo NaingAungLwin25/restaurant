@@ -52,9 +52,11 @@ export class PhoneNumberDialogComponent {
     );
   }
 
-  handleDialogClose() {
+  /**
+   * Handle for phone number form dialog close event
+   */
+  public handleDialogClose() {
     const phone = this.phoneControl.getRawValue();
-    console.log(phone);
     if (this.phoneControl.valid && phone) {
       this.dialogRef.close(phone);
       return;

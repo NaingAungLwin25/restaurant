@@ -58,16 +58,22 @@ export class UserFormComponent {
     });
   }
 
+  /**
+   * Page initialization
+   */
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get('id') || '';
-    console.log(this.userId);
     if (this.userId) {
       this.isEdit = true;
       this.fetchUser(this.userId);
     }
   }
 
-  fetchUser(id: string) {
+  /**
+   * Fetch user by id
+   * @param id user id
+   */
+  private fetchUser(id: string) {
     this.apiService.getItem<User>('users', id).subscribe({
       next: (data) => {
         this.userForm.patchValue(data);
@@ -80,7 +86,10 @@ export class UserFormComponent {
     });
   }
 
-  handleSubmit() {
+  /**
+   * Save User
+   */
+  public handleSubmit() {
     if (this.userForm.invalid) return;
     const payload = { ...this.userForm.getRawValue(), id: uuidv4() };
     const path = 'users';
@@ -91,9 +100,15 @@ export class UserFormComponent {
     this.createUser(path, payload);
   }
 
-  updateUser(id: string, path: string, payload: User) {
+  /**
+   * Update user
+   * @param id User ID
+   * @param path API path
+   * @param payload User Data to register
+   */
+  private updateUser(id: string, path: string, payload: User) {
     this.apiService.updateItem<User>(path, id, payload).subscribe({
-      next: (data) => {
+      next: () => {
         this.router.navigate(['/admin/users']);
       },
       error: (error) => {
@@ -104,9 +119,14 @@ export class UserFormComponent {
     });
   }
 
-  createUser(path: string, payload: User) {
+  /**
+   * User register
+   * @param path API path
+   * @param payload User data to register
+   */
+  private createUser(path: string, payload: User) {
     this.apiService.createItem<User>(path, payload).subscribe({
-      next: (data) => {
+      next: () => {
         this.router.navigate(['/admin/users']);
       },
       error: (error) => {
@@ -117,7 +137,10 @@ export class UserFormComponent {
     });
   }
 
-  handleCancel() {
+  /**
+   * Handle Cancel button
+   */
+  public handleCancel() {
     this.router.navigate(['/admin/users']);
   }
 }

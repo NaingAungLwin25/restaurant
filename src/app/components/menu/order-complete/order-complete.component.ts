@@ -10,7 +10,11 @@ import { Router } from '@angular/router';
 })
 export class OrderCompleteComponent {
   constructor(private router: Router) {}
-  backToHome() {
+
+  /**
+   * Handle back button action
+   */
+  public backToHome() {
     this.router.navigate(['/']);
   }
 }

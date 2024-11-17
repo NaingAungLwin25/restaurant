@@ -30,20 +30,25 @@ import { Category } from '../../../../../models';
 })
 export class CategoryListComponent {
   readonly dialog = inject(MatDialog);
-  displayedColumns: string[] = ['name', 'budget'];
-  dataSource: Array<Category> = [];
+  public displayedColumns: string[] = ['name', 'budget'];
+  public dataSource: Array<Category> = [];
 
   constructor(private apiService: ApiService, private router: Router) {}
 
+  /**
+   * Page Initialization
+   */
   ngOnInit() {
     this.getcategory();
   }
 
-  getcategory() {
+  /**
+   * Get Categories
+   */
+  private getcategory() {
     this.apiService.getItems<Category>('category').subscribe({
       next: (data) => {
         this.dataSource = data;
-        console.log('Items fetched:', data);
       },
       error: (error) => {
         this.dialog.open(ErrorDialogComponent, {
@@ -53,15 +58,26 @@ export class CategoryListComponent {
     });
   }
 
-  goToAdd() {
+  /**
+   * Go to registration page
+   */
+  public goToAdd() {
     this.router.navigate(['/admin/category/create']);
   }
 
-  goToEdit(id: string) {
+  /**
+   * Go to edit page
+   * @param id Category ID
+   */
+  public goToEdit(id: string) {
     this.router.navigate(['/admin/category/' + id]);
   }
 
-  deletecategory(id: string) {
+  /**
+   * Delete Category
+   * @param id Category ID
+   */
+  public deletecategory(id: string) {
     const deleteDialogRef = this.dialog.open(DeleteConfirmDialogComponent);
     deleteDialogRef.afterClosed().subscribe((result) => {
       if (result) {
@@ -79,7 +95,12 @@ export class CategoryListComponent {
     });
   }
 
-  getImage(name: string) {
+  /**
+   * Get image from assets according to product name
+   * @param name Name of product
+   * @returns Image path from assets
+   */
+  public getImage(name: string) {
     const cleanedName = name.replace(/\s+/g, '').toLowerCase();
     const images = {
       coffee: 'coffee',

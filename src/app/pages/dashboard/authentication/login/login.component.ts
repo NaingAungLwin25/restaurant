@@ -36,7 +36,10 @@ export class AppSideLoginComponent {
     password: new FormControl('', [Validators.required]),
   });
 
-  onSubmit() {
+  /**
+   * Login
+   */
+  public onSubmit() {
     const formValue = this.form.getRawValue();
     const uri = `users?name=${formValue.username}&password=${formValue.password}`;
     const decodedURI = decodeURI(uri);

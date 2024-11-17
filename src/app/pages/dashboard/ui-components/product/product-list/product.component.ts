@@ -30,26 +30,31 @@ import { Product } from '../../../../../models';
 })
 export class ProductComponent {
   readonly dialog = inject(MatDialog);
-  displayedColumns: string[] = [
+  public displayedColumns: string[] = [
     'name',
     'price',
     'description',
     'category',
     'budget',
   ];
-  dataSource: Product[] = [];
+  public dataSource: Product[] = [];
 
   constructor(private apiService: ApiService, private router: Router) {}
 
+  /**
+   * Page initialization
+   */
   ngOnInit() {
     this.getproducts();
   }
 
-  getproducts() {
+  /**
+   * Fetch products
+   */
+  private getproducts() {
     this.apiService.getItems<Product>('products').subscribe({
       next: (data) => {
         this.dataSource = data;
-        console.log('Items fetched:', data);
       },
       error: (error) => {
         this.dialog.open(ErrorDialogComponent, {
@@ -59,20 +64,31 @@ export class ProductComponent {
     });
   }
 
-  goToAdd() {
+  /**
+   * Go to registration page
+   */
+  public goToAdd() {
     this.router.navigate(['/admin/products/create']);
   }
 
-  goToEdit(id: string) {
+  /**
+   * Go to update page
+   * @param id Product ID
+   */
+  public goToEdit(id: string) {
     this.router.navigate(['/admin/products/' + id]);
   }
 
-  deleteproduct(id: string) {
+  /**
+   * Delete Product
+   * @param id Product ID
+   */
+  public deleteproduct(id: string) {
     const deleteDialogRef = this.dialog.open(DeleteConfirmDialogComponent);
     deleteDialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.apiService.deleteItem<Product>('products', id).subscribe({
-          next: (data) => {
+          next: () => {
             this.getproducts();
           },
           error: (error) => {

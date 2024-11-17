@@ -12,7 +12,11 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class DeleteConfirmDialogComponent {
   readonly dialogRef = inject(MatDialogRef<DeleteConfirmDialogComponent>);
 
-  handleDialogClose(result: boolean = false) {
+  /**
+   * Dialog close handler
+   * @param result value for Ok or cancel
+   */
+  public handleDialogClose(result: boolean = false) {
     this.dialogRef.close(result);
   }
 }

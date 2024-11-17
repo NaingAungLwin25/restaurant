@@ -5,11 +5,19 @@ import { CompletePageComponent } from './pages/menu/complete-page/complete-page.
 import { FullComponent } from './layouts/dashboard/full/full.component';
 import { BlankComponent } from './layouts/dashboard/blank/blank.component';
 import { AuthGuard } from './guard/auth.guard';
+import { HeaderComponent } from './components/menu/header/header.component';
 
 export const routes: Routes = [
-  { path: '', component: MenuComponent },
-  { path: 'menu/otp', component: OtpPageComponent },
-  { path: 'menu/complete', component: CompletePageComponent },
+  {
+    path: 'menu',
+    component: HeaderComponent,
+    children: [
+      { path: '', component: MenuComponent },
+      { path: 'otp', component: OtpPageComponent },
+      { path: 'complete', component: CompletePageComponent },
+    ],
+  },
+
   {
     path: 'admin',
     component: FullComponent,
@@ -37,5 +45,5 @@ export const routes: Routes = [
       },
     ],
   },
-  { path: '**', redirectTo: '/' },
+  { path: '**', redirectTo: 'menu' },
 ];

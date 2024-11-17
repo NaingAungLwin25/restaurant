@@ -11,7 +11,7 @@
         </div>
         <img mat-card-image [src]="getImage(product.name)" alt="{{ item.name }}" class="product-image" />
       </div>
-      <button mat-raised-button color="warn" class="order-button button" (click)="handleOnOrder(item.name)">ORDER
+      <button mat-raised-button color="warn" class="order-button button" (click)="handleOnOrder()">ORDER
         NOW</button>
       <mat-divider></mat-divider>
     </mat-card>

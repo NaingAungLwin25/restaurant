@@ -38,11 +38,11 @@ import { Category, Product } from '../../../../../models';
   templateUrl: './product-form.component.html',
 })
 export class ProductFormComponent {
-  productForm: FormGroup;
+  public productForm: FormGroup;
   readonly dialog = inject(MatDialog);
-  productId: string = '';
-  isEdit: boolean = false;
-  title: string = '';
+  public productId: string = '';
+  public isEdit: boolean = false;
+  public title: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -58,13 +58,28 @@ export class ProductFormComponent {
     });
   }
 
-  categoryList: Category[] = [];
+  public categoryList: Category[] = [];
 
-  getcategory() {
+  /**
+   * Page initialization
+   */
+  ngOnInit() {
+    this.getcategory();
+    this.productId = this.route.snapshot.paramMap.get('id') || '';
+    if (this.productId) {
+      this.isEdit = true;
+      this.fetchproduct(this.productId);
+    }
+    this.title = this.isEdit ? 'Update' : 'Registration';
+  }
+
+  /**
+   * Fetch categories
+   */
+  private getcategory() {
     this.apiService.getItems<Category>('category').subscribe({
       next: (data) => {
         this.categoryList = data;
-        console.log('Items fetched:', data);
       },
       error: (error) => {
         this.dialog.open(ErrorDialogComponent, {
@@ -74,17 +89,11 @@ export class ProductFormComponent {
     });
   }
 
-  ngOnInit() {
-    this.getcategory();
-    this.productId = this.route.snapshot.paramMap.get('id') || '';
-    console.log(this.productId);
-    if (this.productId) {
-      this.isEdit = true;
-      this.fetchproduct(this.productId);
-    }
-  }
-
-  fetchproduct(id: string) {
+  /**
+   * Get products
+   * @param id Product ID
+   */
+  private fetchproduct(id: string) {
     this.apiService.getItem('products', id).subscribe({
       next: (data) => {
         this.productForm.patchValue(data);
@@ -97,7 +106,10 @@ export class ProductFormComponent {
     });
   }
 
-  handleSubmit() {
+  /**
+   * Save event
+   */
+  public handleSubmit() {
     if (this.productForm.invalid) return;
     const payload = { ...this.productForm.getRawValue(), id: uuidv4() };
     const path = 'products';
@@ -108,9 +120,15 @@ export class ProductFormComponent {
     this.createproduct(path, payload);
   }
 
-  updateproduct(id: string, path: string, payload: Product) {
+  /**
+   * Update product
+   * @param id Product ID
+   * @param path API path
+   * @param payload Product data for update
+   */
+  private updateproduct(id: string, path: string, payload: Product) {
     this.apiService.updateItem<Product>(path, id, payload).subscribe({
-      next: (data) => {
+      next: () => {
         this.router.navigate(['/admin/products']);
       },
       error: (error) => {
@@ -121,10 +139,15 @@ export class ProductFormComponent {
     });
   }
 
-  createproduct(path: string, payload: Product) {
-    console.log(payload, 'payload');
+  /**
+   * Register product
+   * @param id Product ID
+   * @param path API path
+   * @param payload Product data for register
+   */
+  private createproduct(path: string, payload: Product) {
     this.apiService.createItem<Product>(path, payload).subscribe({
-      next: (data) => {
+      next: () => {
         this.router.navigate(['/admin/products']);
       },
       error: (error) => {
@@ -135,7 +158,10 @@ export class ProductFormComponent {
     });
   }
 
-  handleCancel() {
+  /**
+   * Handle click for cancel button
+   */
+  public handleCancel() {
     this.router.navigate(['/admin/products']);
   }
 }
