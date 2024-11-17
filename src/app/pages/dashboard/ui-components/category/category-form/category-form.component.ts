@@ -19,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { v4 as uuidv4 } from 'uuid';
+import { Category } from '../../../../../models';
 
 @Component({
   selector: 'app-category-forms',
@@ -87,8 +88,8 @@ export class CategoryFormComponent {
     this.createcategory(path, payload);
   }
 
-  updatecategory(id: string, path: string, payload: any) {
-    this.apiService.updateItem(path, id, payload).subscribe({
+  updatecategory(id: string, path: string, payload: Category) {
+    this.apiService.updateItem<Category>(path, id, payload).subscribe({
       next: (data) => {
         this.router.navigate(['/admin/category']);
       },
@@ -100,8 +101,8 @@ export class CategoryFormComponent {
     });
   }
 
-  createcategory(path: string, payload: any) {
-    this.apiService.createItem(path, payload).subscribe({
+  createcategory(path: string, payload: Category) {
+    this.apiService.createItem<Category>(path, payload).subscribe({
       next: (data) => {
         this.router.navigate(['/admin/category']);
       },

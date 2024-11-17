@@ -12,6 +12,7 @@ import { MaterialModule } from '../../../../material.module';
 import { ApiService } from '../../../../services/api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../../../components/dashboard/error-dialog/error-dialog.component';
+import { User } from '../../../../models';
 
 @Component({
   selector: 'app-side-login',
@@ -39,7 +40,7 @@ export class AppSideLoginComponent {
     const formValue = this.form.getRawValue();
     const uri = `users?name=${formValue.username}&password=${formValue.password}`;
     const decodedURI = decodeURI(uri);
-    this.apiService.getItems(decodedURI).subscribe({
+    this.apiService.getItems<User>(decodedURI).subscribe({
       next: (data) => {
         if (data.length === 0) {
           this.dialog.open(ErrorDialogComponent, {

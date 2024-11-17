@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../../../../components/dashboard/error-dialog/error-dialog.component';
 import { Router } from '@angular/router';
 import { DeleteConfirmDialogComponent } from '../../../../../components/dashboard/delete-confirm-dialog/delete-confirm-dialog.component';
+import { User } from '../../../../../models';
 
 @Component({
   selector: 'app-user-list',
@@ -29,7 +30,7 @@ import { DeleteConfirmDialogComponent } from '../../../../../components/dashboar
 export class UserListComponent {
   readonly dialog = inject(MatDialog);
   displayedColumns: string[] = ['name', 'address', 'phone', 'budget'];
-  dataSource = [];
+  dataSource: Array<User> = [];
 
   constructor(private apiService: ApiService, private router: Router) {}
 
@@ -38,7 +39,7 @@ export class UserListComponent {
   }
 
   getUsers() {
-    this.apiService.getItems('users').subscribe({
+    this.apiService.getItems<User>('users').subscribe({
       next: (data) => {
         this.dataSource = data;
         console.log('Items fetched:', data);

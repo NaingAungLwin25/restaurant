@@ -13,6 +13,7 @@ import { ProductListComponent } from '../../components/menu/product-list/product
 import { ApiService } from '../../services/api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../components/dashboard/error-dialog/error-dialog.component';
+import { Category, Product, ProductWithCategory } from '../../models';
 
 @Component({
   selector: 'app-menu',
@@ -30,11 +31,11 @@ export class MenuComponent implements OnInit, AfterViewInit {
   @ViewChild('fixContent') headerRef!: ElementRef;
   @ViewChild('scrollContent') scrollRef!: ElementRef;
   readonly dialog = inject(MatDialog);
-  public categoryMenus: any = [];
+  public categoryMenus: Array<Category & { select: boolean }> = [];
 
-  products: any = [];
+  products: Product[] = [];
 
-  public productWithCategory: any = [];
+  public productWithCategory: ProductWithCategory[] = [];
   public headerHeight = 0;
 
   constructor(private apiService: ApiService) {}
@@ -63,9 +64,9 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   fetchCategory() {
-    this.apiService.getItems('category').subscribe({
+    this.apiService.getItems<Category>('category').subscribe({
       next: (data) => {
-        this.categoryMenus = data.map((d: any) => ({ ...d, select: false }));
+        this.categoryMenus = data.map((d) => ({ ...d, select: false }));
         if (this.categoryMenus.length > 0) {
           this.categoryMenus[0].select = true;
           this.fetchProducts();
@@ -80,11 +81,10 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   fetchProducts() {
-    this.apiService.getItems('products').subscribe({
+    this.apiService.getItems<Product>('products').subscribe({
       next: (data) => {
-        console.log(data);
-        this.categoryMenus.forEach((m: any) => {
-          const item = data.filter((p: any) => p.category === m.name);
+        this.categoryMenus.forEach((m) => {
+          const item = data.filter((p) => p.category === m.name);
           if (item && item.length > 0) {
             this.productWithCategory.push({
               name: m.name,
@@ -93,7 +93,6 @@ export class MenuComponent implements OnInit, AfterViewInit {
             });
           }
         });
-        console.log(this.productWithCategory);
       },
       error: (error) => {
         this.dialog.open(ErrorDialogComponent, {

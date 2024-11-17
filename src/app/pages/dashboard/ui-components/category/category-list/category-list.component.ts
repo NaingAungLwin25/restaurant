@@ -12,6 +12,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MaterialModule } from '../../../../../material.module';
 import { Router } from '@angular/router';
+import { Category } from '../../../../../models';
 
 @Component({
   selector: 'app-category-list',
@@ -30,7 +31,7 @@ import { Router } from '@angular/router';
 export class CategoryListComponent {
   readonly dialog = inject(MatDialog);
   displayedColumns: string[] = ['name', 'budget'];
-  dataSource = [];
+  dataSource: Array<Category> = [];
 
   constructor(private apiService: ApiService, private router: Router) {}
 
@@ -39,7 +40,7 @@ export class CategoryListComponent {
   }
 
   getcategory() {
-    this.apiService.getItems('category').subscribe({
+    this.apiService.getItems<Category>('category').subscribe({
       next: (data) => {
         this.dataSource = data;
         console.log('Items fetched:', data);
@@ -64,7 +65,7 @@ export class CategoryListComponent {
     const deleteDialogRef = this.dialog.open(DeleteConfirmDialogComponent);
     deleteDialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.apiService.deleteItem('category', id).subscribe({
+        this.apiService.deleteItem<Category>('category', id).subscribe({
           next: (data) => {
             this.getcategory();
           },

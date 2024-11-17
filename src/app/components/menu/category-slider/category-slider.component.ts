@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { Category } from '../../../models';
 
 @Component({
   selector: 'menu-category-slider',
@@ -9,7 +10,7 @@ import { Component, Input } from '@angular/core';
   styleUrl: './category-slider.component.scss',
 })
 export class CategorySliderComponent {
-  @Input() categoryMenus: any[] = [];
+  @Input() categoryMenus: Array<Category & { select: boolean }> = [];
 
   public handleOnChangeMenu(id: string) {
     this.categoryMenus = this.categoryMenus.map((menu) =>

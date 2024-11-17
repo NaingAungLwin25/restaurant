@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Category, Product, User } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -10,23 +11,36 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  getItems(path: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${path}`);
+  getItems<T extends Category | Product | User>(path: string): Observable<T[]> {
+    return this.http.get<T[]>(`${this.apiUrl}/${path}`);
   }
 
-  getItem(path: string, id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${path}/${id}`);
+  getItem<T extends Category | Product | User>(
+    path: string,
+    id: string
+  ): Observable<T> {
+    return this.http.get<T>(`${this.apiUrl}/${path}/${id}`);
   }
 
-  createItem(path: string, data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/${path}`, data);
+  createItem<T extends Category | Product | User>(
+    path: string,
+    data: T
+  ): Observable<T> {
+    return this.http.post<T>(`${this.apiUrl}/${path}`, data);
   }
 
-  updateItem(path: string, id: string, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${path}/${id}`, data);
+  updateItem<T extends Category | Product | User>(
+    path: string,
+    id: string,
+    data: T
+  ): Observable<T> {
+    return this.http.put<T>(`${this.apiUrl}/${path}/${id}`, data);
   }
 
-  deleteItem(path: string, id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${path}/${id}`);
+  deleteItem<T extends Category | Product | User>(
+    path: string,
+    id: string
+  ): Observable<T> {
+    return this.http.delete<T>(`${this.apiUrl}/${path}/${id}`);
   }
 }

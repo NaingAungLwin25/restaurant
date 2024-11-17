@@ -6,6 +6,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { PhoneNumberDialogComponent } from '../phone-number-dialog/phone-number-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { ProductWithCategory } from '../../../models';
 
 @Component({
   selector: 'menu-product-list',
@@ -15,7 +16,7 @@ import { Router } from '@angular/router';
   styleUrl: './product-list.component.scss',
 })
 export class ProductListComponent {
-  @Input() productWithCategory: any = [];
+  @Input() productWithCategory: ProductWithCategory[] = [];
   readonly dialog = inject(MatDialog);
 
   constructor(private router: Router) {}

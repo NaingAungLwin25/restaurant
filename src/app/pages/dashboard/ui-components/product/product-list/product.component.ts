@@ -12,6 +12,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MaterialModule } from '../../../../../material.module';
 import { Router } from '@angular/router';
+import { Product } from '../../../../../models';
 
 @Component({
   selector: 'app-product-list',
@@ -36,7 +37,7 @@ export class ProductComponent {
     'category',
     'budget',
   ];
-  dataSource = [];
+  dataSource: Product[] = [];
 
   constructor(private apiService: ApiService, private router: Router) {}
 
@@ -45,7 +46,7 @@ export class ProductComponent {
   }
 
   getproducts() {
-    this.apiService.getItems('products').subscribe({
+    this.apiService.getItems<Product>('products').subscribe({
       next: (data) => {
         this.dataSource = data;
         console.log('Items fetched:', data);
@@ -70,7 +71,7 @@ export class ProductComponent {
     const deleteDialogRef = this.dialog.open(DeleteConfirmDialogComponent);
     deleteDialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.apiService.deleteItem('products', id).subscribe({
+        this.apiService.deleteItem<Product>('products', id).subscribe({
           next: (data) => {
             this.getproducts();
           },

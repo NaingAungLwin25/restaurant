@@ -19,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { v4 as uuidv4 } from 'uuid';
+import { Category, Product } from '../../../../../models';
 
 @Component({
   selector: 'app-product-forms',
@@ -57,10 +58,10 @@ export class ProductFormComponent {
     });
   }
 
-  categoryList = [] as any;
+  categoryList: Category[] = [];
 
   getcategory() {
-    this.apiService.getItems('category').subscribe({
+    this.apiService.getItems<Category>('category').subscribe({
       next: (data) => {
         this.categoryList = data;
         console.log('Items fetched:', data);
@@ -107,8 +108,8 @@ export class ProductFormComponent {
     this.createproduct(path, payload);
   }
 
-  updateproduct(id: string, path: string, payload: any) {
-    this.apiService.updateItem(path, id, payload).subscribe({
+  updateproduct(id: string, path: string, payload: Product) {
+    this.apiService.updateItem<Product>(path, id, payload).subscribe({
       next: (data) => {
         this.router.navigate(['/admin/products']);
       },
@@ -120,9 +121,9 @@ export class ProductFormComponent {
     });
   }
 
-  createproduct(path: string, payload: any) {
+  createproduct(path: string, payload: Product) {
     console.log(payload, 'payload');
-    this.apiService.createItem(path, payload).subscribe({
+    this.apiService.createItem<Product>(path, payload).subscribe({
       next: (data) => {
         this.router.navigate(['/admin/products']);
       },

@@ -18,6 +18,7 @@ import { ApiService } from '../../../../../services/api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../../../../components/dashboard/error-dialog/error-dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '../../../../../models';
 
 @Component({
   selector: 'app-user-forms',
@@ -67,7 +68,7 @@ export class UserFormComponent {
   }
 
   fetchUser(id: string) {
-    this.apiService.getItem('users', id).subscribe({
+    this.apiService.getItem<User>('users', id).subscribe({
       next: (data) => {
         this.userForm.patchValue(data);
       },
@@ -90,8 +91,8 @@ export class UserFormComponent {
     this.createUser(path, payload);
   }
 
-  updateUser(id: string, path: string, payload: any) {
-    this.apiService.updateItem(path, id, payload).subscribe({
+  updateUser(id: string, path: string, payload: User) {
+    this.apiService.updateItem<User>(path, id, payload).subscribe({
       next: (data) => {
         this.router.navigate(['/admin/users']);
       },
@@ -103,8 +104,8 @@ export class UserFormComponent {
     });
   }
 
-  createUser(path: string, payload: any) {
-    this.apiService.createItem(path, payload).subscribe({
+  createUser(path: string, payload: User) {
+    this.apiService.createItem<User>(path, payload).subscribe({
       next: (data) => {
         this.router.navigate(['/admin/users']);
       },

@@ -9,6 +9,7 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MaterialModule } from '../../../../material.module';
+import { User } from '../../../../models';
 
 @Component({
   selector: 'app-header',
@@ -28,7 +29,7 @@ export class HeaderComponent {
   getLoginUserName() {
     const storeObj = localStorage.getItem('loginUser');
     if (!storeObj) return;
-    const loginUser = JSON.parse(storeObj);
+    const loginUser = JSON.parse(storeObj) as User;
     return loginUser.name;
   }
 
