@@ -79,13 +79,6 @@
       "category": "Coffee",
       "image": "assets/menu/images/product-image.png",
       "id": "51a3"
-    },
-    {
-      "id": "8519b2dd-1d17-43da-bfa8-20e8b25d8907",
-      "name": "test",
-      "category": "Bubble Tea",
-      "price": "3000",
-      "description": "Hi"
     }
   ],
   "users": [
