@@ -7,13 +7,13 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { BannerComponent } from '../../components/menu/banner/banner.component';
-import { CategorySliderComponent } from '../../components/menu/category-slider/category-slider.component';
-import { ProductListComponent } from '../../components/menu/product-list/product-list.component';
-import { ApiService } from '../../services/api.service';
+import { BannerComponent } from '../../../components/user/banner/banner.component';
+import { CategorySliderComponent } from '../../../components/user/category-slider/category-slider.component';
+import { ProductListComponent } from '../../../components/user/product-list/product-list.component';
+import { ApiService } from '../../../services/api.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from '../../components/dashboard/error-dialog/error-dialog.component';
-import { Category, Product, ProductWithCategory } from '../../models';
+import { ErrorDialogComponent } from '../../../components/admin/error-dialog/error-dialog.component';
+import { Category, Product, ProductWithCategory } from '../../../models';
 
 @Component({
   selector: 'app-menu',

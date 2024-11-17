@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 
 import { ApiService } from '../../../../../services/api.service';
-import { ErrorDialogComponent } from '../../../../../components/dashboard/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from '../../../../../components/admin/error-dialog/error-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -19,10 +19,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { v4 as uuidv4 } from 'uuid';
-import { Category, Product } from '../../../../../models';
+import { Category } from '../../../../../models';
 
 @Component({
-  selector: 'app-product-forms',
+  selector: 'app-category-forms',
   standalone: true,
   imports: [
     MatFormFieldModule,
@@ -35,12 +35,12 @@ import { Category, Product } from '../../../../../models';
     MatInputModule,
     MatCheckboxModule,
   ],
-  templateUrl: './product-form.component.html',
+  templateUrl: './category-form.component.html',
 })
-export class ProductFormComponent {
-  public productForm: FormGroup;
+export class CategoryFormComponent {
+  public categoryForm: FormGroup;
   readonly dialog = inject(MatDialog);
-  public productId: string = '';
+  private categoryId: string = '';
   public isEdit: boolean = false;
   public title: string = '';
 
@@ -50,36 +50,31 @@ export class ProductFormComponent {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.productForm = this.fb.group({
+    this.categoryForm = this.fb.group({
       name: ['', Validators.required],
-      category: ['', [Validators.required]],
-      price: ['', [Validators.required]],
-      description: ['', Validators.required],
     });
   }
 
-  public categoryList: Category[] = [];
-
   /**
-   * Page initialization
+   * Page Initialize
    */
   ngOnInit() {
-    this.getcategory();
-    this.productId = this.route.snapshot.paramMap.get('id') || '';
-    if (this.productId) {
+    this.categoryId = this.route.snapshot.paramMap.get('id') || '';
+    if (this.categoryId) {
       this.isEdit = true;
-      this.fetchproduct(this.productId);
+      this.fetchcategory(this.categoryId);
     }
     this.title = this.isEdit ? 'Update' : 'Registration';
   }
 
   /**
-   * Fetch categories
+   * Fetch Category by ID
+   * @param id Category ID
    */
-  private getcategory() {
-    this.apiService.getItems<Category>('category').subscribe({
+  private fetchcategory(id: string) {
+    this.apiService.getItem('category', id).subscribe({
       next: (data) => {
-        this.categoryList = data;
+        this.categoryForm.patchValue(data);
       },
       error: (error) => {
         this.dialog.open(ErrorDialogComponent, {
@@ -90,46 +85,29 @@ export class ProductFormComponent {
   }
 
   /**
-   * Get products
-   * @param id Product ID
-   */
-  private fetchproduct(id: string) {
-    this.apiService.getItem('products', id).subscribe({
-      next: (data) => {
-        this.productForm.patchValue(data);
-      },
-      error: (error) => {
-        this.dialog.open(ErrorDialogComponent, {
-          data: { message: error.message },
-        });
-      },
-    });
-  }
-
-  /**
-   * Save event
+   * Handle submit button
    */
   public handleSubmit() {
-    if (this.productForm.invalid) return;
-    const payload = { ...this.productForm.getRawValue(), id: uuidv4() };
-    const path = 'products';
+    if (this.categoryForm.invalid) return;
+    const payload = { ...this.categoryForm.getRawValue(), id: uuidv4() };
+    const path = 'category';
     if (this.isEdit) {
-      this.updateproduct(this.productId, path, payload);
+      this.updatecategory(this.categoryId, path, payload);
       return;
     }
-    this.createproduct(path, payload);
+    this.createcategory(path, payload);
   }
 
   /**
-   * Update product
-   * @param id Product ID
+   * Update category
+   * @param id Category ID
    * @param path API path
-   * @param payload Product data for update
+   * @param payload Category payload
    */
-  private updateproduct(id: string, path: string, payload: Product) {
-    this.apiService.updateItem<Product>(path, id, payload).subscribe({
+  private updatecategory(id: string, path: string, payload: Category) {
+    this.apiService.updateItem<Category>(path, id, payload).subscribe({
       next: () => {
-        this.router.navigate(['/admin/products']);
+        this.router.navigate(['/admin/category']);
       },
       error: (error) => {
         this.dialog.open(ErrorDialogComponent, {
@@ -140,15 +118,14 @@ export class ProductFormComponent {
   }
 
   /**
-   * Register product
-   * @param id Product ID
+   * Create new category
    * @param path API path
-   * @param payload Product data for register
+   * @param payload Category payload
    */
-  private createproduct(path: string, payload: Product) {
-    this.apiService.createItem<Product>(path, payload).subscribe({
+  private createcategory(path: string, payload: Category) {
+    this.apiService.createItem<Category>(path, payload).subscribe({
       next: () => {
-        this.router.navigate(['/admin/products']);
+        this.router.navigate(['/admin/category']);
       },
       error: (error) => {
         this.dialog.open(ErrorDialogComponent, {
@@ -162,6 +139,6 @@ export class ProductFormComponent {
    * Handle click for cancel button
    */
   public handleCancel() {
-    this.router.navigate(['/admin/products']);
+    this.router.navigate(['/admin/category']);
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { OrderCompleteComponent } from '../../../components/menu/order-complete/order-complete.component';
+import { OrderCompleteComponent } from '../../../components/user/order-complete/order-complete.component';
 
 @Component({
   selector: 'app-complete-page',

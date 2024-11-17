@@ -11,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MaterialModule } from '../../../../material.module';
 import { ApiService } from '../../../../services/api.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from '../../../../components/dashboard/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from '../../../../components/admin/error-dialog/error-dialog.component';
 import { User } from '../../../../models';
 
 @Component({

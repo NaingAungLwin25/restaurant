@@ -2,8 +2,8 @@ import { Component, inject } from '@angular/core';
 
 import { ApiService } from '../../../../../services/api.service';
 import { CommonModule } from '@angular/common';
-import { DeleteConfirmDialogComponent } from '../../../../../components/dashboard/delete-confirm-dialog/delete-confirm-dialog.component';
-import { ErrorDialogComponent } from '../../../../../components/dashboard/error-dialog/error-dialog.component';
+import { DeleteConfirmDialogComponent } from '../../../../../components/admin/delete-confirm-dialog/delete-confirm-dialog.component';
+import { ErrorDialogComponent } from '../../../../../components/admin/error-dialog/error-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,10 +12,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MaterialModule } from '../../../../../material.module';
 import { Router } from '@angular/router';
-import { Category } from '../../../../../models';
+import { Product } from '../../../../../models';
 
 @Component({
-  selector: 'app-category-list',
+  selector: 'app-product-list',
   standalone: true,
   imports: [
     MatTableModule,
@@ -26,27 +26,33 @@ import { Category } from '../../../../../models';
     MatMenuModule,
     MatButtonModule,
   ],
-  templateUrl: './category-list.component.html',
+  templateUrl: './product.component.html',
 })
-export class CategoryListComponent {
+export class ProductComponent {
   readonly dialog = inject(MatDialog);
-  public displayedColumns: string[] = ['name', 'budget'];
-  public dataSource: Array<Category> = [];
+  public displayedColumns: string[] = [
+    'name',
+    'price',
+    'description',
+    'category',
+    'budget',
+  ];
+  public dataSource: Product[] = [];
 
   constructor(private apiService: ApiService, private router: Router) {}
 
   /**
-   * Page Initialization
+   * Page initialization
    */
   ngOnInit() {
-    this.getcategory();
+    this.getproducts();
   }
 
   /**
-   * Get Categories
+   * Fetch products
    */
-  private getcategory() {
-    this.apiService.getItems<Category>('category').subscribe({
+  private getproducts() {
+    this.apiService.getItems<Product>('products').subscribe({
       next: (data) => {
         this.dataSource = data;
       },
@@ -62,28 +68,28 @@ export class CategoryListComponent {
    * Go to registration page
    */
   public goToAdd() {
-    this.router.navigate(['/admin/category/create']);
+    this.router.navigate(['/admin/products/create']);
   }
 
   /**
-   * Go to edit page
-   * @param id Category ID
+   * Go to update page
+   * @param id Product ID
    */
   public goToEdit(id: string) {
-    this.router.navigate(['/admin/category/' + id]);
+    this.router.navigate(['/admin/products/' + id]);
   }
 
   /**
-   * Delete Category
-   * @param id Category ID
+   * Delete Product
+   * @param id Product ID
    */
-  public deletecategory(id: string) {
+  public deleteproduct(id: string) {
     const deleteDialogRef = this.dialog.open(DeleteConfirmDialogComponent);
     deleteDialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.apiService.deleteItem<Category>('category', id).subscribe({
-          next: (data) => {
-            this.getcategory();
+        this.apiService.deleteItem<Product>('products', id).subscribe({
+          next: () => {
+            this.getproducts();
           },
           error: (error) => {
             this.dialog.open(ErrorDialogComponent, {
@@ -93,26 +99,5 @@ export class CategoryListComponent {
         });
       }
     });
-  }
-
-  /**
-   * Get image from assets according to product name
-   * @param name Name of product
-   * @returns Image path from assets
-   */
-  public getImage(name: string) {
-    const cleanedName = name.replace(/\s+/g, '').toLowerCase();
-    const images = {
-      coffee: 'coffee',
-      bubbletea: 'bubble-tea',
-      smoothie: 'smoothie',
-      fruittea: 'fruit-tea',
-      soda: 'soda',
-      yoguart: 'yoguart',
-    };
-
-    const imageName = images[cleanedName as keyof typeof images] || 'default';
-
-    return `assets/menu/images/${imageName}.png`;
   }
 }

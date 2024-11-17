@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { MenuComponent } from './pages/menu/menu.component';
-import { OtpPageComponent } from './pages/menu/otp-page/otp-page.component';
-import { CompletePageComponent } from './pages/menu/complete-page/complete-page.component';
-import { FullComponent } from './layouts/dashboard/full/full.component';
-import { BlankComponent } from './layouts/dashboard/blank/blank.component';
+import { OtpPageComponent } from './pages/user/otp-page/otp-page.component';
+import { CompletePageComponent } from './pages/user/complete-page/complete-page.component';
+import { FullComponent } from './layouts/admin/full/full.component';
+import { BlankComponent } from './layouts/admin/blank/blank.component';
 import { AuthGuard } from './guard/auth.guard';
-import { HeaderComponent } from './components/menu/header/header.component';
+import { HeaderComponent } from './layouts/user/header/header.component';
+import { MenuComponent } from './pages/user/menu/menu.component';
 
 export const routes: Routes = [
   {
@@ -17,7 +17,6 @@ export const routes: Routes = [
       { path: 'complete', component: CompletePageComponent },
     ],
   },
-
   {
     path: 'admin',
     component: FullComponent,
@@ -26,7 +25,7 @@ export const routes: Routes = [
       {
         path: '',
         loadChildren: () =>
-          import('./pages/dashboard/ui-components/ui-components.routes').then(
+          import('./pages/admin/ui-components/ui-components.routes').then(
             (m) => m.UiComponentsRoutes
           ),
       },
@@ -39,7 +38,7 @@ export const routes: Routes = [
       {
         path: 'auth',
         loadChildren: () =>
-          import('./pages/dashboard/authentication/authentication.routes').then(
+          import('./pages/admin/authentication/authentication.routes').then(
             (m) => m.AuthenticationRoutes
           ),
       },

@@ -8,9 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MaterialModule } from '../../../../../material.module';
 import { ApiService } from '../../../../../services/api.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from '../../../../../components/dashboard/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from '../../../../../components/admin/error-dialog/error-dialog.component';
 import { Router } from '@angular/router';
-import { DeleteConfirmDialogComponent } from '../../../../../components/dashboard/delete-confirm-dialog/delete-confirm-dialog.component';
+import { DeleteConfirmDialogComponent } from '../../../../../components/admin/delete-confirm-dialog/delete-confirm-dialog.component';
 import { User } from '../../../../../models';
 
 @Component({

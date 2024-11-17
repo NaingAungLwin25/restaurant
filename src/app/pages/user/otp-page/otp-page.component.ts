@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { OtpActionComponent } from '../../../components/menu/otp-action/otp-action.component';
+import { OtpActionComponent } from '../../../components/user/otp-action/otp-action.component';
 
 @Component({
   selector: 'app-otp-page',

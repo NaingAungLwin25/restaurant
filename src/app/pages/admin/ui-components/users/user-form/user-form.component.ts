@@ -16,7 +16,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { v4 as uuidv4 } from 'uuid';
 import { ApiService } from '../../../../../services/api.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from '../../../../../components/dashboard/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from '../../../../../components/admin/error-dialog/error-dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../../../../models';
 
