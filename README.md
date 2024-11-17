@@ -1,27 +1,66 @@
 # Restaurant
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.12.
+This project consists of two parts:
 
-## Development server
+- **User (Menu UI)**: The user interface for browsing the app.
+- **Admin (Dashboard)**: The admin dashboard for managing data.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+The app uses **json-server** to provide dummy data for the backend.
 
-## Code scaffolding
+## Prerequisites
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Node.js v20
+- npm
 
-## Build
+## Installation
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Clone the repository:
 
-## Running unit tests
+   ```bash
+   git clone <repository-url>
+   ```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+2. Navigate into the project directory:
 
-## Running end-to-end tests
+   ```bash
+   cd <project-directory>
+   ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Further help
+## Running the Application
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. Run the Dummy Data Backend
+
+   ```bash
+   npx json-server db.json
+   ```
+
+2. Run the Angular App (Frontend)
+
+   ```bash
+   npm run start
+   ```
+
+   - This will launch the application at http://localhost:4200, where you can access the User (Menu UI).
+
+   - The admin dashboard is accessible at http://localhost:4200/admin.
+
+# Default Credentials
+
+For logging into the admin dashboard, use the following dummy credentials:
+
+- Username: `admin1`
+- Password: `admin1234`
+
+When prompted for an dummy OTP, use the default:
+
+- OTP: `11111`
+
+# Available Scripts
+
+- npm run start: Starts the Angular app.
+- npx json-server db.json: Starts the JSON server with dummy data.

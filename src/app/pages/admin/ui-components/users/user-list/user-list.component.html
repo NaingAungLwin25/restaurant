@@ -62,10 +62,13 @@
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
               </button>
+              @if (element.id !== loginUser.id) {
               <button mat-menu-item (click)="deleteUser(element.id)">
                 <mat-icon>delete</mat-icon>
                 <span>Delete</span>
               </button>
+              }
+
             </mat-menu>
           </td>
         </ng-container>

@@ -35,6 +35,7 @@ export class UserListComponent {
   readonly dialog = inject(MatDialog);
   public displayedColumns: string[] = ['name', 'address', 'phone', 'budget'];
   public dataSource: Array<User> = [];
+  public loginUser!: User;
 
   constructor(private apiService: ApiService, private router: Router) {}
 
@@ -43,6 +44,8 @@ export class UserListComponent {
    */
   ngOnInit() {
     this.getUsers();
+    const storeObj = localStorage.getItem('loginUser') || '';
+    this.loginUser = JSON.parse(storeObj);
   }
 
   /**
