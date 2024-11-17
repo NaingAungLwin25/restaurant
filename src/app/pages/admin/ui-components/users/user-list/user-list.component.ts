@@ -8,10 +8,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MaterialModule } from '../../../../../material.module';
 import { ApiService } from '../../../../../services/api.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from '../../../../../components/admin/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from '../../../../../components/error-dialog/error-dialog.component';
 import { Router } from '@angular/router';
 import { DeleteConfirmDialogComponent } from '../../../../../components/admin/delete-confirm-dialog/delete-confirm-dialog.component';
 import { User } from '../../../../../models';
+import {
+  ERROR_USER_IN_DELETE,
+  ERROR_USER_IN_FETCH,
+} from '../../../../../constants';
 
 @Component({
   selector: 'app-user-list',
@@ -50,8 +54,9 @@ export class UserListComponent {
         this.dataSource = data;
       },
       error: (error) => {
+        console.error(error);
         this.dialog.open(ErrorDialogComponent, {
-          data: { message: error.message },
+          data: { message: ERROR_USER_IN_FETCH },
         });
       },
     });
@@ -85,8 +90,9 @@ export class UserListComponent {
             this.getUsers();
           },
           error: (error) => {
+            console.error(error);
             this.dialog.open(ErrorDialogComponent, {
-              data: { message: error.message },
+              data: { message: ERROR_USER_IN_DELETE },
             });
           },
         });

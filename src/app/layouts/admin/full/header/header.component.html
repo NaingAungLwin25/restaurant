@@ -2,7 +2,9 @@
   <!-- Mobile Menu -->
   @if(!showToggle) {
   <button mat-mini-fab color="inherit" (click)="toggleMobileNav.emit()" class="d-flex justify-content-center">
-    <i class="iconify icon-20 d-flex" data-icon="solar:hamburger-menu-line-duotone"></i>
+    <mat-icon>
+      <menu></menu>
+    </mat-icon>
   </button>
   }
 

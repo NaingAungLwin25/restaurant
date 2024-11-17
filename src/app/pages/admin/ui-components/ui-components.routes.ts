@@ -14,7 +14,7 @@ export const UiComponentsRoutes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'users',
+        redirectTo: 'products',
         pathMatch: 'full',
       },
       {

@@ -12,8 +12,12 @@ import { CategorySliderComponent } from '../../../components/user/category-slide
 import { ProductListComponent } from '../../../components/user/product-list/product-list.component';
 import { ApiService } from '../../../services/api.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from '../../../components/admin/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from '../../../components/error-dialog/error-dialog.component';
 import { Category, Product, ProductWithCategory } from '../../../models';
+import {
+  ERROR_CATEGORY_IN_FETCH,
+  ERROR_PRODUCT_IN_FETCH,
+} from '../../../constants';
 
 @Component({
   selector: 'app-menu',
@@ -91,8 +95,9 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       },
       error: (error) => {
+        console.error(error);
         this.dialog.open(ErrorDialogComponent, {
-          data: { message: error.message },
+          data: { message: ERROR_CATEGORY_IN_FETCH },
         });
       },
     });
@@ -116,8 +121,9 @@ export class MenuComponent implements OnInit, AfterViewInit, OnDestroy {
         });
       },
       error: (error) => {
+        console.error(error);
         this.dialog.open(ErrorDialogComponent, {
-          data: { message: error.message },
+          data: { message: ERROR_PRODUCT_IN_FETCH },
         });
       },
     });

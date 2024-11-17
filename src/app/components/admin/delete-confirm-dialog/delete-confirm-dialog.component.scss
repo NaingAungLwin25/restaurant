@@ -1,0 +1,17 @@
+@import "../../../../styles/variables";
+@import "../../../../styles/typography";
+
+.dialog-delete-title {
+  color: $red;
+}
+.dialog-close-btn {
+  padding: 10px 30px;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+.ok-btn {
+  background-color: $red;
+  color: $white;
+}

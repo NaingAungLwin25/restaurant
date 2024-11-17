@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { ApiService } from '../../../../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { DeleteConfirmDialogComponent } from '../../../../../components/admin/delete-confirm-dialog/delete-confirm-dialog.component';
-import { ErrorDialogComponent } from '../../../../../components/admin/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from '../../../../../components/error-dialog/error-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,6 +13,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MaterialModule } from '../../../../../material.module';
 import { Router } from '@angular/router';
 import { Category } from '../../../../../models';
+import {
+  ERROR_CATEGORY_IN_DELETE,
+  ERROR_CATEGORY_IN_FETCH,
+} from '../../../../../constants';
 
 @Component({
   selector: 'app-category-list',
@@ -51,8 +55,9 @@ export class CategoryListComponent {
         this.dataSource = data;
       },
       error: (error) => {
+        console.error(error);
         this.dialog.open(ErrorDialogComponent, {
-          data: { message: error.message },
+          data: { message: ERROR_CATEGORY_IN_FETCH },
         });
       },
     });
@@ -82,12 +87,13 @@ export class CategoryListComponent {
     deleteDialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.apiService.deleteItem<Category>('category', id).subscribe({
-          next: (data) => {
+          next: () => {
             this.getcategory();
           },
           error: (error) => {
+            console.error(error);
             this.dialog.open(ErrorDialogComponent, {
-              data: { message: error.message },
+              data: { message: ERROR_CATEGORY_IN_DELETE },
             });
           },
         });

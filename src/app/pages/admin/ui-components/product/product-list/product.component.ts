@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { ApiService } from '../../../../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { DeleteConfirmDialogComponent } from '../../../../../components/admin/delete-confirm-dialog/delete-confirm-dialog.component';
-import { ErrorDialogComponent } from '../../../../../components/admin/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from '../../../../../components/error-dialog/error-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,6 +13,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MaterialModule } from '../../../../../material.module';
 import { Router } from '@angular/router';
 import { Product } from '../../../../../models';
+import {
+  ERROR_PRODUCT_IN_DELETE,
+  ERROR_PRODUCT_IN_FETCH,
+} from '../../../../../constants';
 
 @Component({
   selector: 'app-product-list',
@@ -57,8 +61,9 @@ export class ProductComponent {
         this.dataSource = data;
       },
       error: (error) => {
+        console.error(error);
         this.dialog.open(ErrorDialogComponent, {
-          data: { message: error.message },
+          data: { message: ERROR_PRODUCT_IN_FETCH },
         });
       },
     });
@@ -92,8 +97,9 @@ export class ProductComponent {
             this.getproducts();
           },
           error: (error) => {
+            console.error(error);
             this.dialog.open(ErrorDialogComponent, {
-              data: { message: error.message },
+              data: { message: ERROR_PRODUCT_IN_DELETE },
             });
           },
         });

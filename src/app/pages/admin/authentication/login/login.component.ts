@@ -11,8 +11,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MaterialModule } from '../../../../material.module';
 import { ApiService } from '../../../../services/api.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from '../../../../components/admin/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from '../../../../components/error-dialog/error-dialog.component';
 import { User } from '../../../../models';
+import { ERROR_LOGIN, ERROR_LOGIN_INVALID } from '../../../../constants';
 
 @Component({
   selector: 'app-side-login',
@@ -47,7 +48,7 @@ export class AppSideLoginComponent {
       next: (data) => {
         if (data.length === 0) {
           this.dialog.open(ErrorDialogComponent, {
-            data: { message: 'username and password invalid' },
+            data: { message: ERROR_LOGIN_INVALID },
           });
         } else {
           const user = data[0];
@@ -56,8 +57,9 @@ export class AppSideLoginComponent {
         }
       },
       error: (error) => {
+        console.error(error);
         this.dialog.open(ErrorDialogComponent, {
-          data: { message: error.message },
+          data: { message: ERROR_LOGIN },
         });
       },
     });

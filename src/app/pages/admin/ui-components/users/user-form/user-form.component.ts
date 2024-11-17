@@ -16,9 +16,14 @@ import { MatRadioModule } from '@angular/material/radio';
 import { v4 as uuidv4 } from 'uuid';
 import { ApiService } from '../../../../../services/api.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from '../../../../../components/admin/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from '../../../../../components/error-dialog/error-dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../../../../models';
+import {
+  ERROR_USER_IN_CREATE,
+  ERROR_USER_IN_FETCH,
+  ERROR_USER_IN_UPDATE,
+} from '../../../../../constants';
 
 @Component({
   selector: 'app-user-forms',
@@ -79,8 +84,9 @@ export class UserFormComponent {
         this.userForm.patchValue(data);
       },
       error: (error) => {
+        console.error(error);
         this.dialog.open(ErrorDialogComponent, {
-          data: { message: error.message },
+          data: { message: ERROR_USER_IN_FETCH },
         });
       },
     });
@@ -90,6 +96,7 @@ export class UserFormComponent {
    * Save User
    */
   public handleSubmit() {
+    this.userForm.markAllAsTouched();
     if (this.userForm.invalid) return;
     const payload = { ...this.userForm.getRawValue(), id: uuidv4() };
     const path = 'users';
@@ -112,8 +119,9 @@ export class UserFormComponent {
         this.router.navigate(['/admin/users']);
       },
       error: (error) => {
+        console.error(error);
         this.dialog.open(ErrorDialogComponent, {
-          data: { message: error.message },
+          data: { message: ERROR_USER_IN_UPDATE },
         });
       },
     });
@@ -130,8 +138,9 @@ export class UserFormComponent {
         this.router.navigate(['/admin/users']);
       },
       error: (error) => {
+        console.error(error);
         this.dialog.open(ErrorDialogComponent, {
-          data: { message: error.message },
+          data: { message: ERROR_USER_IN_CREATE },
         });
       },
     });

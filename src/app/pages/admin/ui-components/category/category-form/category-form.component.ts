@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 
 import { ApiService } from '../../../../../services/api.service';
-import { ErrorDialogComponent } from '../../../../../components/admin/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from '../../../../../components/error-dialog/error-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -20,6 +20,11 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { v4 as uuidv4 } from 'uuid';
 import { Category } from '../../../../../models';
+import {
+  ERROR_CATEGORY_IN_CREATE,
+  ERROR_CATEGORY_IN_FETCH,
+  ERROR_CATEGORY_IN_UPDATE,
+} from '../../../../../constants';
 
 @Component({
   selector: 'app-category-forms',
@@ -77,8 +82,9 @@ export class CategoryFormComponent {
         this.categoryForm.patchValue(data);
       },
       error: (error) => {
+        console.error(error);
         this.dialog.open(ErrorDialogComponent, {
-          data: { message: error.message },
+          data: { message: ERROR_CATEGORY_IN_FETCH },
         });
       },
     });
@@ -88,6 +94,7 @@ export class CategoryFormComponent {
    * Handle submit button
    */
   public handleSubmit() {
+    this.categoryForm.markAllAsTouched();
     if (this.categoryForm.invalid) return;
     const payload = { ...this.categoryForm.getRawValue(), id: uuidv4() };
     const path = 'category';
@@ -110,8 +117,9 @@ export class CategoryFormComponent {
         this.router.navigate(['/admin/category']);
       },
       error: (error) => {
+        console.error(error);
         this.dialog.open(ErrorDialogComponent, {
-          data: { message: error.message },
+          data: { message: ERROR_CATEGORY_IN_UPDATE },
         });
       },
     });
@@ -128,8 +136,9 @@ export class CategoryFormComponent {
         this.router.navigate(['/admin/category']);
       },
       error: (error) => {
+        console.error(error);
         this.dialog.open(ErrorDialogComponent, {
-          data: { message: error.message },
+          data: { message: ERROR_CATEGORY_IN_CREATE },
         });
       },
     });
